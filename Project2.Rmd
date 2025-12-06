@@ -20,7 +20,7 @@ library(RColorBrewer)
 
 
 ```{r echo=FALSE}
-business_data <- read.csv("C:/Users/rynne/onedrive/Documents/Emanagement_Module1/business_performance.csv")
+business_data <- read.csv("C:/Users/rynne/onedrive/Documents/Emanagement_Module1/portfolio/business_performance.csv")
 
 ```
 
@@ -91,6 +91,7 @@ kable(Summary_table, caption = "Business Summary by Channel", digits = 2)
 
 ```
 Based on our analysis and given data, I recommend to invest more on the Online channel, whilst also helping the other channels such as the Retail channel. The Online channel shows the strongest overall performance, generating over $5.5M in total revenue, averaging about 1560 customers and have a decently high conversion rate of 3.64%. Investing more onto this channel will enable us to optimize it even further and attain higher numbers. 
+
 
 
 
