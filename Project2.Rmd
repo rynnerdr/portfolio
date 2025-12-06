@@ -1,0 +1,99 @@
+---
+title: "Business Insight Report"
+subtitle: "Data Visualization and Communication"
+author: "Rynner D -- 667480735"
+date: "2025-10-09"
+output: 
+  html_document:
+    theme: journal
+    toc: true
+    toc_depth: 2
+    number_sections: false
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(knitr)
+library(RColorBrewer)
+
+```
+
+
+```{r echo=FALSE}
+business_data <- read.csv("C:/Users/rynne/onedrive/Documents/Emanagement_Module1/business_performance.csv")
+
+```
+
+# Data Setup and Business Context
+
+## Question 1: Data Preparation and Initial Analysis
+
+```{r echo=FALSE}
+str(business_data)
+summary(business_data)
+range(business_data$revenue)
+```
+The variables quarter and channel are both character (chr) data types, meaning they store text values such as "Q1", "Q2", "Online", and "Retail". The range for the revenue goes from 150231 to 412125.
+
+```{r echo=FALSE}
+aggregate(revenue ~ channel, data = business_data, sum)
+aggregate(customers ~ quarter, data = business_data, mean)
+
+```
+The channel that produces the most revenue overall would be the Online channel. The quarter that typically have the most customers is during Q3. 
+
+```{r echo=FALSE}
+business_data$revenue_per_customer <- business_data$revenue / business_data$customers
+aggregate(revenue_per_customer ~ channel, data = business_data, mean)
+
+```
+The channel that provides the highest average revenue per customer is Retail. This could mean that retail customers tend to buy higher-priced goods, most likely caused by in-store upselling or buying well known branded goods.  
+
+# Business Visualizations
+
+## Question 2: Creating Professional Charts
+
+```{r echo=FALSE}
+channel_totals <- aggregate(revenue ~ channel, data = business_data, sum)
+ggplot(channel_totals, aes(x = channel, y = revenue, color = channel, fill = channel)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total Revenue by Channel", 
+       x = "Sales Channel", y = "Revenue ($)") +
+  theme_classic()
+
+```
+
+Based on the graph shown above, the channel that needs more investment should be retail. 
+
+```{r echo=FALSE}
+ggplot(business_data, aes(x = customers, y = revenue, color = channel)) +
+  geom_point(size = 3) +
+  labs(title = "Customer Count vs Revenue by Channel",
+       x = "Number of Customers", y = "Revenue ($)")
+
+```
+
+The channel that shows the most efficiency in turning customers into revenue would be the online channel. As seen on the scatter plot above, the online channel has a lot of its points shown above the other channels, showing that it generates mroe revenue per customer.
+
+# Strategic Recommendations
+
+## Question 3: Action Plan
+
+```{r echo=FALSE}
+revperchan <- aggregate(revenue ~ channel, data = business_data,sum) 
+cusperchan <- aggregate(customers ~ channel, data = business_data, mean) 
+conperchan <- aggregate(conversion_rate ~ channel, data = business_data, mean)
+
+summary_table <- merge(revperchan, cusperchan, by = "channel")
+Summary_table <- merge (summary_table, conperchan, by = "channel")
+kable(Summary_table, caption = "Business Summary by Channel", digits = 2)
+
+
+```
+Based on our analysis and given data, I recommend to invest more on the Online channel, whilst also helping the other channels such as the Retail channel. The Online channel shows the strongest overall performance, generating over $5.5M in total revenue, averaging about 1560 customers and have a decently high conversion rate of 3.64%. Investing more onto this channel will enable us to optimize it even further and attain higher numbers. 
+
+
+
+
+
+

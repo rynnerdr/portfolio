@@ -1,0 +1,52 @@
+
+---
+title: "About Me"
+---
+
+## Background
+
+I'm a second-year student at VIU, learning how data analysis works, 
+as well as studying business, majoring in accounting.
+
+## Skills & Tools
+
+**Analysis:**
+
+- R for data analysis
+- Data cleaning and transformation
+- Statistical analysis and interpretation
+
+**Visualization & Reporting:**
+
+- ggplot2 for professional visualizations
+- R Markdown for reproducible reports
+- Data storytelling for business audiences
+
+**Data Sources:**
+
+- CSV file processing
+- Government open data (via APIs)
+- Business performance datasets
+
+## Education
+
+**VIU** - Bachelors of Business Administration, Majoring in Accounting 
+*Expected Graduation: 2028*
+
+Relevant Coursework:
+
+- Data Analysis for E-Management
+- Business Statistics
+- Information Systems
+
+## Contact
+
+Feel free to connect with me:
+
+- Email: [rynnerdr@gmail.com](mailto:rynnerd@gmail.com)
+- LinkedIn: [Rynner Delos Reyes](https://linkedin.com/in/yourprofile)
+- GitHub: [rynnerd](https://github.com/rynnerd)
+
+---
+
+[← Back to Home](index.html)

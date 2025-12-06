@@ -1,0 +1,150 @@
+---
+title: "Business Data Analysis Report"
+subtitle: "CSV Import and Data Cleaning"
+author: "Rynner D - 667480735"
+date: "October 08, 2025"
+output: 
+  html_document:
+    theme: journal
+    toc: true
+    toc_depth: 2
+    number_sections: false
+---
+
+
+# Data Import and Exploration
+
+## Question 1
+``` {r echo= FALSE}
+regional_sales <- data.frame(
+  region = c("North", "South", "East", "West", "North", "South", "East", "West",
+             "North", "South", "East", "West", "North", "South", "East", 
+             "North", "South","North"),  
+  quarter = c(rep(c("Q1", "Q2", "Q3", "Q4"), each = 4), "Q4", "Q4"),
+  revenue = c(125000, 98000, 115000, 102000, 
+              138000, 105000, 128000, 118000,
+              142000, 89000, 135000, 125000,
+              155000, 112000, 148000, 165000, 
+              120000, 91250),
+  customers = c(450, 380, 420, 395, 
+                485, 415, 465, 445,
+                520, 350, 485, 470,
+                575, 425, 545, 590, 435,324)
+)
+
+```
+
+``` {r echo= FALSE}
+str(regional_sales)
+
+```
+The input above shows the structure of the data. Included in the code, it reveals that it has about 18 observations and 4 variables, the variables being: region, quarter, revenue, and customers.
+
+
+``` {r echo= FALSE}
+head(regional_sales)
+
+summary(regional_sales)
+
+```
+The code above shows data from using the code head() and summary(). The range of the revenue value can be found in the summary() data and it goes from a minimum of 89,000 to a maximum of 165,000. The regions can be found on the head() code and the first few ones that appear are "North", "South", "East", and "West".
+
+
+``` {r echo= FALSE}
+unique(regional_sales)
+
+```
+The code above shows the data from the code unique(). As seen on the data, there are about 4 different  regions and about 4 different quarters.
+
+
+``` {r echo= FALSE}
+sum(regional_sales$customers)
+
+```
+This number provides the data of total customers across all regions and quarters. This number can be used in business to determine customer engagement throughout and this can be used to find out growth trends or to compare customer volume to revenue. 
+
+## Question 2 
+
+``` {r echo= FALSE}
+sum(is.na(regional_sales))
+
+```
+The number above shows if there is any missing values on the data. As seen above, there is no missing values in this data set. Checking if there is missing values is important as they could lead to different averages or business insights. This can cause wrong forecasts or bad decision-making.
+
+
+``` {r echo= FALSE}
+table(regional_sales$region, regional_sales$quarter)
+
+```
+The data are being distributed evenly, although there are some times where there is more data given or not given at all. This unevenness can be spotted mostly on quarter 4. This lets the business managers know that most of the time, all of the regions are doing mostly similar things. It tends to be busier in certain regions during quarter 4, which typically means more things are happening (more work, more transactions, etc.).
+
+
+``` {r echo= FALSE}
+regional_sales[regional_sales$revenue < 90000, ]
+
+```
+The code above shows which region  and quarter has a revenue less than $90,000. Seen above, the region that is less than 90k is a South region, ranking 10th, and is in quarter 3.
+
+
+# Business Logic Analysis
+
+## Question 3
+``` {r echo= FALSE}
+regional_sales[regional_sales$revenue > 140000, ]
+
+nrow(regional_sales[regional_sales$revenue > 140000, ])
+
+```
+As seen above, only 4 regions have made revenue over $140000. Most of them were amde during quarter 4 and most from the North region.
+
+
+``` {r echo= FALSE}
+regional_sales[regional_sales$quarter == "Q4" & 
+               regional_sales$revenue > 130000 & 
+               regional_sales$customers > 500, ]
+```
+As seen above, only 3 regions have made over $130000 in revenue and have more than 500 customers in Q4. This shows that in year-end, these regions perform better, likely due to events and/or holidays on that quarter. 
+
+
+``` {r echo=FALSE}
+regional_sales[regional_sales$region == "North" | regional_sales$region == "East", ]
+mean(regional_sales[regional_sales$region == "North" | regional_sales$region == "East", ]$revenue)
+mean(regional_sales$revenue)
+
+```
+As seen above, the overall average revenue is a bit lower than the combined average revenue of the North and East regions. This could mean that the two regions perform better than the overall average. This could be used as a indicator on which regions to focus more on and which regions can be improved.
+
+``` {r echo=FALSE}
+regional_sales[regional_sales$revenue < 100000 |
+                 regional_sales$customer < 400, ]
+
+(4/18)*100
+
+```
+There are 4 total records that are deemed concerning out of the 18 total. This means that about 22% of the shops need some help and close monitoring.
+
+# Data Aggregation and Business Insights
+
+## Question 4
+```{r echo=FALSE}
+aggregate(revenue ~ region, data = regional_sales, sum)
+```
+As seen above, the region that generated the most revenue is the North, about $300000 more than the second highest.
+
+
+```{r echo=FALSE}
+aggregate(customers ~ quarter, data = regional_sales, mean)
+```
+As seen above, the quarter that shows the highest customer count is quarter 4. This could be because of the holidays and and possibly year-end promotions. Having seasonal marketing usually increases customer volume.
+
+
+## Question 5
+```{r echo=FALSE}
+cat("Total Revenue across all Regions & Quarters")
+sum(regional_sales$revenue)
+aggregate(revenue ~ region, data = regional_sales, sum)
+aggregate(revenue ~ quarter, data = regional_sales, mean)
+nrow(regional_sales[regional_sales$revenue > 140000, ])
+
+```
+As seen above, the north region shows the most consistent performance, generating over $800,000 in revenue, contributing the most to the total revenue. The quarter that shows strong performance would be quarter 4, averaging about $10,000 more than the other quarters. The company (myself) should focus on investing more time and money on making the north region better.
